@@ -1,0 +1,203 @@
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}Tech Sphere{% endblock %}</title>
+    {% load static %}
+    <meta
+      name="description"
+      content="Tech Sphere is a platform for robotics competitions and innovation."
+    />
+    <meta
+      name="keywords"
+      content="robotics, competition, innovation, tech, engineering"
+    />
+    <link rel="icon" href="{% static 'main/images/favicon.ico' %}" type="image/x-icon"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      @keyframes slideIn {
+        0% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes slideUp {
+        0% {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes popUp {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .competition-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .competition-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .competition-card:hover .details-button {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .details-button {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    </style>
+  </head>
+  <body class="font-roboto bg-gray-900 text-white">
+    <!-- Navbar -->
+
+    <nav class="bg-gray-700 p-4 sticky top-0 z-50">
+      <div class="container mx-auto flex justify-between items-center px-4">
+        <a class="text-2xl font-bold" href="{% url 'main:home' %}">
+          Tech Sphere
+        </a>
+
+        <div class="hidden md:flex space-x-4">
+          <a class="hover:text-gray-400" href="{% url 'main:home' %}"> Home </a>
+          <a
+            class="hover:text-gray-400"
+            href="{% if request.path == '/' %}#competitions{% else %}{% url 'main:home' %}#competitions{% endif %}"
+          >
+            Competitions
+          </a>
+          <a
+            class="hover:text-gray-400"
+            href="{% if request.path == '/' %}#about{% else %}{% url 'main:home' %}#about{% endif %}"
+          >
+            About
+          </a>
+          <a
+            class="hover:text-gray-400"
+            href="{% if request.path == '/' %}#contact{% else %}{% url 'main:home' %}#contact{% endif %}"
+          >
+            Contact
+          </a>
+          {% if user.is_authenticated %}
+          <a class="hover:text-gray-400" href="{% url 'main:dashboard' %}">
+            Dashboard
+          </a>
+          <a class="hover:text-gray-400" href="{% url 'main:logout' %}">
+            Logout
+          </a>
+          {% else %}
+          <a class="hover:text-gray-400" href="{% url 'main:login' %}">
+            Login
+          </a>
+          {% endif %}
+        </div>
+        <div class="md:hidden">
+          <button class="text-white focus:outline-none" id="menu-button">
+            <i class="fas fa-bars"> </i>
+          </button>
+        </div>
+      </div>
+      <div class="hidden md:hidden" id="mobile-menu">
+        <a
+          class="block py-2 px-4 hover:bg-gray-600"
+          href="{% url 'main:home' %}"
+        >
+          Home
+        </a>
+        <a
+          class="block py-2 px-4 hover:bg-gray-600"
+          href="{% if request.path == '/' %}#competitions{% else %}{% url 'main:home' %}#competitions{% endif %}"
+        >
+          Competitions
+        </a>
+        <a
+          class="block py-2 px-4 hover:bg-gray-600"
+          href="{% if request.path == '/' %}#about{% else %}{% url 'main:home' %}#about{% endif %}"
+        >
+          About
+        </a>
+        <a
+          class="block py-2 px-4 hover:bg-gray-600"
+          href="{% if request.path == '/' %}#contact{% else %}{% url 'main:home' %}#contact{% endif %}"
+        >
+          Contact
+        </a>
+        {% if user.is_authenticated %}
+        <a
+          class="block py-2 px-4 hover:bg-gray-600"
+          href="{% url 'main:dashboard' %}"
+        >
+          Dashboard
+        </a>
+        <a
+          class="block py-2 px- 4 hover:bg-gray-600"
+          href="{% url 'main:logout' %}"
+        >
+          Logout
+        </a>
+        {% else %}
+        <a
+          class="block py-2 px-4 hover:bg-gray-600"
+          href="{% url 'main:login' %}"
+        >
+          Login
+        </a>
+        {% endif %}
+      </div>
+    </nav>
+
+    {% block content %} {% endblock %}
+
+    <footer class="bg-gray-800 text-white py-8">
+      <div class="container mx-auto px-6 text-center">
+        <p class="mb-4">© 2023 Tech Sphere. All rights reserved.</p>
+        
+        <div class="mt-4">
+          <p class="text-gray-400">For any queries, contact:</p>
+          <p>
+            <span class="font-bold">Devrao Bokare:</span>
+            <a href="tel:+918390200292">+91 83902 00292</a><br>
+            <span class="font-bold">Amol Jadhav:</span>
+            <a href="tel:+919552678123">+91 95526 78123</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      document
+        .getElementById("menu-button")
+        .addEventListener("click", function () {
+          var menu = document.getElementById("mobile-menu");
+          if (menu.classList.contains("hidden")) {
+            menu.classList.remove("hidden");
+          } else {
+            menu.classList.add("hidden");
+          }
+        });
+    </script>
+  </body>
+</html>

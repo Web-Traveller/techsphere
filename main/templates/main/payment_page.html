@@ -1,0 +1,59 @@
+<!-- main/templates/main/payment_page.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center">
+   <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+     <h2 class="text-2xl font-bold mb-6 text-center">Payment Information for {{ competition.name }}</h2>
+       {% if messages %}
+           <div class="my-4">
+              {% for message in messages %}
+               <div class="bg-{{ message.tags }}-200 border-l-4 border-{{ message.tags }}-500 text-{{ message.tags }}-700 p-4 mb-2" role="alert">
+                   <p class="font-bold">{{ message.tags|title }}</p>
+                   <p>{{ message }}</p>
+               </div>
+              {% endfor %}
+            </div>
+        {% endif %}
+       <div class="mb-6 text-center">
+           <img
+           alt="QR code for payment"
+           class="mx-auto mb-4"
+           height="200"
+           src="{% static 'main/images/qr-code.png' %}"
+           width="200"
+         />
+        <p class="text-sm">Scan the QR code to make the payment</p>
+      </div>
+        <form method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+           <div class="mb-4">
+             <label
+               class="block text-sm font-medium mb-2"
+               for="paymentScreenshot"
+             >
+               Upload Payment Screenshot
+             </label>
+              {{ form.payment_screenshot }}
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-sm font-medium mb-2"
+                 for="transactionNumber"
+               >
+                Transaction Number
+               </label>
+                 {{ form.transaction_number }}
+            </div>
+          <button
+             class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded text-white font-bold"
+             type="submit"
+           >
+           Submit Payment
+         </button>
+        </form>
+     </div>
+ </div>
+{% endblock %}

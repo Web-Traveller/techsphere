@@ -1,0 +1,164 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Home - Tech
+Sphere{% endblock %} {% block content %}
+<!-- Hero Section -->
+<section class="bg-gray-800 text-white" id="hero">
+  <div
+    class="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center"
+  >
+    <div class="md:w-1/2 animate-slideIn text-center md:text-left">
+      <h1 class="text-4xl md:text-7xl font-bold mb-4">
+        Welcome to <span class="text-blue-500"><br />Tech Sphere</span>
+      </h1>
+      <p class="text-lg md:text-3xl mb-8">
+        Innovating the Future with Advanced Robotics
+      </p>
+      <a
+        class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full inline-block"
+        href="#competitions"
+      >
+        Explore Competitions
+      </a>
+    </div>
+    <div class="md:w-1/2 animate-popUp mt-8 md:mt-0">
+      <img
+        alt="A futuristic sphere representing advanced technology"
+        class="mx-auto"
+        height="400"
+        src="{% static 'main/images/ts_adv.png' %}"
+        width="600"
+      />
+    </div>
+  </div>
+</section>
+<!-- Competitions Section -->
+<section class="bg-gray-900 text-white py-16" id="competitions">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      Upcoming Competitions
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+      {% for competition in competitions %}
+      <div
+        class="competition-card bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out animation-popUp"
+      >
+        {% if competition.image %}
+        <img
+          alt="{{ competition.name }}"
+          class="w-full h-48 object-cover"
+          src="{{ competition.image.url }}"
+        />
+        {% endif %}
+        <div class="p-4">
+          <h3 class="text-xl font-semibold mb-2">{{ competition.name }}</h3>
+          <a
+            class="details-button bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full mt-4 inline-block"
+            href="{% url 'main:competition_detail' pk=competition.pk %}"
+          >
+            View Details
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <p>No competitions available yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- About Section -->
+<section class="bg-gray-800 text-white py-16" id="about">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">About Us</h2>
+    <div class="flex flex-col md:flex-row items-center px-4">
+      <img
+        alt="Team of engineers working on a robotic project"
+        class="w-full md:w-1/2 mb-8 md:mb-0 md:mr-8 rounded animate-slideIn"
+        height="300"
+        src="https://storage.googleapis.com/a1aa/image/YoUqfNVDHN1gOK2UX10w8GUUkWcenzep72fXaxiO8NpAGsLQB.jpg"
+        width="400"
+      />
+      <div class="md:w-1/2 animate-slideUp">
+        <p class="text-lg mb-4">
+          Welcome to our corner of the internet! We’re a passionate team of
+          students from MPGI SOE Nanded, united by our love for building
+          innovative products and tackling real-world challenges. Each of us
+          brings unique skills and perspectives to the table, and together, we
+          thrive on collaboration and creativity. Our mission is simple yet
+          powerful: to make the world a better place, one project at a time.
+          Whether we’re brainstorming new ideas or diving into hands-on
+          development, we’re driven by a shared commitment to problem-solving
+          and innovation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Contact Section -->
+<section class="bg-gray-900 text-white py-16" id="contact">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Contact Us</h2>
+    <div class="flex flex-col md:flex-row items-center px-4">
+      <div class="md:w-1/2 mb-8 md:mb-0 md:mr-8 animate-slideIn">
+        <h3 class="text-2xl font-bold mb-4">Get in Touch</h3>
+        <p class="text-lg mb-4">
+          We'd love to hear from you! Whether you have a question about our
+          products, services, or anything else, our team is ready to answer all
+          your questions.
+        </p>
+        <p class="text-lg mb-4">
+          <i class="fas fa-phone-alt mr-2"></i> +91 92265 20596
+        </p>
+        <p class="text-lg mb-4">
+          <i class="fas fa-envelope mr-2"></i> roboticsboysmpgi@gmail.com
+        </p>
+        <p class="text-lg">
+          <i class="fas fa-map-marker-alt mr-2"></i> 401, Computer
+          Department, MPGI SOE Nanded
+        </p>
+      </div>
+      <form
+        method="post"
+        class="md:w-1/2 w-full bg-gray-800 p-6 rounded-lg shadow-lg animate-popUp"
+      >
+        {% csrf_token %} {{ form.as_p }}
+        <button
+          class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold mt-2 py-2 px-4 rounded-full"
+          type="submit"
+        >
+          Send Message
+        </button>
+        {% if messages %}
+        <div class="mt-4">
+          {% for message in messages %}
+          <div
+            class="bg-{{ message.tags }}-200 border-l-4 border-{{ message.tags }}-500 text-{{ message.tags }}-700 p-4 mb-2"
+            role="alert"
+          >
+            <p class="font-bold">{{ message.tags|title }}</p>
+            <p>{{ message }}</p>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href");
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

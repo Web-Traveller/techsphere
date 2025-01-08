@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen mt-10 mb-10 flex flex-col items-center justify-center">
+   <div class="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-4xl">
+        <h1 class="text-3xl font-bold mb-6 text-center">
+           {{ competition.name }}
+       </h1>
+       <!-- Image Section -->
+       <div class="mb-6 text-center">
+           {% if competition.image %}
+              <img
+              alt="A group of people participating in a tech competition, with laptops and gadgets on the table"
+              class="rounded-lg mx-auto"
+              height="300"
+              src="{{ competition.image.url }}"
+              width="600"
+              />
+            {% endif %}
+       </div>
+        <!-- Brief Info Section -->
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Brief Info</h2>
+             <p class="text-gray-300 mb-4">
+                  {{ competition.description }}
+              </p>
+         </section>
+         <!-- Rules Section -->
+         <section class="mb-6">
+             <h2 class="text-2xl font-semibold mb-4">Rules</h2>
+             <ul class="list-disc list-inside text-gray-300 space-y-2">
+             {% for rule in competition.rules.splitlines %}
+                <li> {{ rule }} </li>
+              {% endfor %}
+            </ul>
+        </section>
+         {% if competition.prize %}
+           <section class="mb-6">
+                <h2 class="text-2xl font-semibold mb-4">Prize</h2>
+                  <p class="text-gray-300 mb-4">
+                     {{ competition.prize }}
+                   </p>
+           </section>
+         {% endif %}
+        <!-- Register Button -->
+        <div class="text-center">
+            <a
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              href="{% url 'main:register_for_competition' pk=competition.pk %}"
+             >
+               Register Now
+             </a>
+        </div>
+   </div>
+</div>
+{% endblock %}
