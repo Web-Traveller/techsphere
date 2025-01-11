@@ -1,117 +1,103 @@
-<!-- main/templates/main/dashboard.html -->
+{# main/templates/main/dashboard.html #}
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="container mx-auto p-6 mt-10">
   <h2 class="text-3xl font-bold text-white mb-6 text-center">Dashboard</h2>
-    {% if messages %}
-      <div class="my-4">
-        {% for message in messages %}
-         <div class="bg-{{ message.tags }}-200 border-l-4 border-{{ message.tags }}-500 text-{{ message.tags }}-700 p-4 mb-2" role="alert">
-           <p class="font-bold">{{ message.tags|title }}</p>
-           <p>{{ message }}</p>
-         </div>
+  
+  {% if messages %}
+    <div class="my-4">
+      {% for message in messages %}
+        <div class="bg-{{ message.tags }}-200 border-l-4 border-{{ message.tags }}-500 text-{{ message.tags }}-700 p-4 mb-2" role="alert">
+          <p class="font-bold">{{ message.tags|title }}</p>
+          <p>{{ message }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  
+  {# User Detail Card #}
+  <div class="max-w-md mx-auto bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+    <h3 class="text-2xl font-bold text-white mb-4">User  Details</h3>
+    <div class="grid grid-cols-1 gap-4">
+      <div>
+        <p class="text-md font-semibold text-white">Name:</p>
+        <p class="text-gray-400">{{ user.name }}</p>
+      </div>
+      <div>
+        <p class="text-md font-semibold text-white">Email:</p>
+        <p class="text-gray-400">{{ user.email }}</p>
+      </div>
+    </div>
+  </div>
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold text-white mb-6">Registered Competitions</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for registration in registered_competitions %}
+          <div class="bg-gray-800 shadow-md rounded-lg overflow-hidden flex flex-col animation-popUp">
+            <div class="relative">
+              {% if registration.competition.image %}
+                <img alt="{{ registration.competition.name }}" class="w-full h-32 object-cover"
+                src="{{ registration.competition.image.url }}" />
+              {% endif %}
+              <div class="absolute bottom-0 left-0 bg-black bg-opacity-50 w-full p-2">
+                <h2 class="text-lg font-semibold text-white">
+                    {{ registration.competition.name }}
+                </h2>
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-grow">
+              <div>
+                {% if registration.team %}
+                  <h3 class="text-md font-semibold text-white">Team ID</h3>
+                  <p class="text-gray-400">{{ registration.team.team_id }}</p>
+                  <h3 class="text-md font-semibold text-white">Team Leader</h3>
+                  <p class="text-gray-400">{{ registration.team.team_leader.name }}</p>
+                  <h3 class="text-md font-semibold text-white">Members</h3>
+                  <ul class="list-disc list-inside text-gray-400">
+                    {% for member in registration.team.members_details.all %}
+                      <li>{{ member.name }}</li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <h3 class="text-md font-semibold text-white">Participant Name</h3>
+                  <p class="text-gray-400">{{ registration.user.name }}</p>
+                {% endif %}
+              </div>
+              <div class="mt-2 flex justify-between items-center">
+                {% if registration.payment_status == 'paid_verified' %}
+                  <span class="inline-block bg-green-200 text-green-800 text-sm font-semibold px-2 py-1 rounded">
+                    Payment Confirmed
+                  </span>
+                {% elif registration.payment_status == 'pending' %}
+                  <span class="inline-block bg-yellow-200 text-yellow-800 text-sm font-semibold px-2 py-1 rounded">
+                    Payment Pending
+                  </span>
+                {% elif registration.payment_status == 'paid_not_verified' %}
+                  <span class="inline-block bg-yellow-200 text-yellow-800 text-sm font-semibold px-2 py-1 rounded">
+                    Payment Not Verified
+                  </span>
+                {% else %}
+                  <span class="inline-block bg-red-200 text-red-800 text-sm font-semibold px-2 py-1 rounded">
+                    Payment Not Submitted
+                  </span>
+                {% endif %}
+                <a
+                  class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                  href="{% url 'main:competition_detail' pk=registration.competition.pk %}"
+                >View Details
+                </a>
+              </div>
+            </div>
+          </div>
         {% endfor %}
       </div>
-    {% endif %}
-    <div class="max-w-6xl mx-auto">
-      {% if team %}
-       <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6 animation-popUp">
-             <p class="text-gray-300 mb-4">
-               Team ID: <span class="font-bold text-white text-xl">{{ team.team_id }}</span>
-             </p>
-               <p class="text-gray-300 mb-4">
-               Team Name: <span class="font-bold text-white text-xl">{{ team.name }}</span>
-               </p>
-                <div class="mb-4">
-                  <h3 class="text-md font-semibold text-white">Team Payment Status:</h3>
-                   {% if team.payment_status == 'paid_verified' %}
-                         <span class="inline-block bg-green-200 text-green-800 text-sm font-semibold px-2 py-1 rounded">
-                          Payment Confirmed
-                        </span>
-                        {% elif team.payment_status == 'pending' %}
-                           <span class="inline-block bg-yellow-200 text-yellow-800 text-sm font-semibold px-2 py-1 rounded">
-                           Payment Pending
-                           </span>
-                        {% elif team.payment_status == 'paid_not_verified' %}
-                            <span class="inline-block bg-yellow-200 text-yellow-800 text-sm font-semibold px-2 py-1 rounded">
-                           Payment Not Verified
-                           </span>
-                        {% else %}
-                          <span class="inline-block bg-red-200 text-red-800 text-sm font-semibold px-2 py-1 rounded">
-                            Payment Not Submitted
-                           </span>
-                       {% endif %}
-                </div>
-          </div>
-           <h2 class="text-3xl font-bold text-white mb-6">Registered Competitions</h2>
-             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-               {% for registration in registered_competitions %}
-                 <div class="bg-gray-800 shadow-md rounded-lg overflow-hidden flex flex-col animation-popUp">
-                    <!-- Top Side -->
-                   <div class="relative">
-                    {% if registration.competition.image %}
-                      <img alt="{{ registration.competition.name }}" class="w-full h-32 object-cover"
-                      src="{{ registration.competition.image.url }}" />
-                     {% endif %}
-                     <div class="absolute bottom-0 left-0 bg-black bg-opacity-50 w-full p-2">
-                        <h2 class="text-lg font-semibold text-white">
-                            {{ registration.competition.name }}
-                        </h2>
-                     </div>
-                    </div>
-                    <!-- Bottom Side -->
-                    <div class="p-4 flex flex-col justify-between flex-grow">
-                       <div>
-                          <h3 class="text-md font-semibold text-white">Team Leader</h3>
-                          <p class="text-gray-400">{{ team.team_leader.name }}</p>
-                       </div>
-                      <div class="mt-2">
-                         <h3 class="text-md font-semibold text-white">Members</h3>
-                         <ul class="list-disc list-inside text-gray-400">
-                             {% for member in team.members_details.all %}
-                                 <li>{{ member.name }}</li>
-                             {% endfor %}
-                         </ul>
-                      </div>
-                      <div class="mt-2 flex justify-between items-center">
-                       {% if registration.payment_status == 'paid_verified' %}
-                         <span class="inline-block bg-green-200 text-green-800 text-sm font-semibold px-2 py-1 rounded">
-                          Payment Confirmed
-                        </span>
-                        {% elif registration.payment_status == 'pending' %}
-                           <span class="inline-block bg-yellow-200 text-yellow-800 text-sm font-semibold px-2 py-1 rounded">
-                           Payment Pending
-                           </span>
-                        {% elif registration.payment_status == 'paid_not_verified' %}
-                            <span class="inline-block bg-yellow-200 text-yellow-800 text-sm font-semibold px-2 py-1 rounded">
-                           Payment Not Verified
-                           </span>
-                        {% else %}
-                          <span class="inline-block bg-red-200 text-red-800 text-sm font-semibold px-2 py-1 rounded">
-                            Payment Not Submitted
-                           </span>
-                       {% endif %}
-
-                        <a
-                          class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                          href="{% url 'main:competition_detail' pk=registration.competition.pk %}"
-                           >View Details
-                         </a>
-                      </div>
-                   </div>
-                  </div>
-               {% endfor %}
-             </div>
-         {% else %}
-             <div class="bg-gray-800 rounded-lg shadow-lg p-6 mt-4 text-center animation-popUp">
-            <p class="text-gray-300 mb-4">You have not created a team yet</p>
-                <a href="{% url 'main:create_team' %}"
-                   class="inline-block mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                   >Create Team
-                </a>
-             </div>
-         {% endif %}
+      {% if not registered_competitions and not registered_competitions_individual %}
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6 mt-4 text-center animation-popUp">
+          <p class="text-gray-300 mb-4">You have not participated in any competition</p>
+        </div>
+      {% endif %}
     </div>
 </div>
 {% endblock %}

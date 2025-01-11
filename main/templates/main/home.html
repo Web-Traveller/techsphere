@@ -1,7 +1,9 @@
+{# main/templates/main/home.html #}
 {% extends 'base.html' %} {% load static %} {% block title %}Home - Tech
 Sphere{% endblock %} {% block content %}
+
 <!-- Hero Section -->
-<section class="bg-gray-800 text-white" id="hero">
+<section class="bg-gray-800 text-white block" id="hero">
   <div
     class="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center"
   >
@@ -31,12 +33,12 @@ Sphere{% endblock %} {% block content %}
   </div>
 </section>
 <!-- Competitions Section -->
-<section class="bg-gray-900 text-white py-16" id="competitions">
+<section class="bg-gray-900 text-white py-16 block" id="competitions">
   <div class="container mx-auto px-6">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
       Upcoming Competitions
     </h2>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-4">
       {% for competition in competitions %}
       <div
         class="competition-card bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out animation-popUp"
@@ -65,7 +67,7 @@ Sphere{% endblock %} {% block content %}
   </div>
 </section>
 <!-- About Section -->
-<section class="bg-gray-800 text-white py-16" id="about">
+<section class="bg-gray-800 text-white py-16 block" id="about">
   <div class="container mx-auto px-6">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">About Us</h2>
     <div class="flex flex-col md:flex-row items-center px-4">
@@ -93,7 +95,7 @@ Sphere{% endblock %} {% block content %}
   </div>
 </section>
 <!-- Contact Section -->
-<section class="bg-gray-900 text-white py-16" id="contact">
+<section class="bg-gray-900 text-white py-16 block" id="contact">
   <div class="container mx-auto px-6">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Contact Us</h2>
     <div class="flex flex-col md:flex-row items-center px-4">
@@ -143,7 +145,6 @@ Sphere{% endblock %} {% block content %}
     </div>
   </div>
 </section>
-
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
