@@ -3,214 +3,547 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>{% block title %}Tech Sphere{% endblock %}</title>
+    <title>{% block title %}TechSphere - Future Tech Events{% endblock %}</title>
     {% load static %}
-    <meta name="description" content="Tech Sphere is a platform for robotics competitions and innovation."/>
-    <meta name="keywords" content="robotics, competition, innovation, tech, engineering"/>
+    <meta name="description" content="TechSphere - Pioneering the future through cutting-edge tech competitions and innovation."/>
+    <meta name="keywords" content="robotics, AI, hackathon, space-tech, competition, innovation, tech, engineering, future"/>
     <link rel="icon" href="{% static 'main/images/favicon.ico' %}" type="image/x-icon"/>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G6KGZSXZCJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    
+    <!-- Custom Styles -->
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet"/>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G6KGZSXZCJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-G6KGZSXZCJ');
+    </script>
 
-  gtag('config', 'G-G6KGZSXZCJ');
-</script>
-
-<style>
-  @keyframes appear{
-    from{
-      opacity:0;
-      scale:0.5;
-    }
-    to{
-      opacity:1;
-      scale:1;
-    }
-  }
-
-  .block{
-    animation:appear linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
-    }
-
-
-  @keyframes slideIn {
-    0% {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  @keyframes slideUp {
-    0% {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  @keyframes popUp {
-    0% {
-      transform: scale(0.5);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  .competition-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .competition-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  }
-  .competition-card:hover .details-button {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .details-button {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    opacity: 0;
-    transform: translateY(10px);
-  }
-</style>
-  </head>
-  <body class="font-roboto bg-gray-900 text-white view">
-    <!-- Navbar -->
-<nav class="bg-gray-700 p-4 sticky top-0 z-50">
-  <div class="container mx-auto flex justify-between items-center px-4">
-    <a class="text-2xl font-bold" href="{% url 'main:home' %}">
-      Tech Sphere
-    </a>
-
-    <div class="hidden md:flex space-x-4">
-      <a class="hover:text-gray-400" href="{% url 'main:home' %}"> Home </a>
-      <a
-        class="hover:text-gray-400"
-        href="{% if request.path == '/' %}#competitions{% else %}{% url 'main:home' %}#competitions{% endif %}"
-      >
-        Competitions
-      </a>
-      <a
-        class="hover:text-gray-400"
-        href="{% if request.path == '/' %}#about{% else %}{% url 'main:home' %}#about{% endif %}"
-      >
-        About
-      </a>
-      <a
-        class="hover:text-gray-400"
-        href="{% if request.path == '/' %}#contact{% else %}{% url 'main:home' %}#contact{% endif %}"
-      >
-        Contact
-      </a>
-      {% if user.is_authenticated %}
-      <a class="hover:text-gray-400" href="{% url 'main:dashboard' %}">
-        Dashboard
-      </a>
-      <a class="hover:text-gray-400" href="{% url 'main:logout' %}">
-        Logout
-      </a>
-      {% else %}
-      <a class="hover:text-gray-400" href="{% url 'main:login' %}">
-        Login
-      </a>
-      {% endif %}
-    </div>
-    <div class="md:hidden">
-      <button class="text-white focus:outline-none" id="menu-button">
-        <i class="fas fa-bars"> </i>
-      </button>
-    </div>
-  </div>
-  <div class="hidden md:hidden" id="mobile-menu">
-    <a
-      class="block py-2 px-4 hover:bg-gray-600"
-      href="{% url 'main:home' %}"
-    >
-      Home
-    </a>
-    <a
-      class="block py-2 px-4 hover:bg-gray-600"
-      href="{% if request.path == '/' %}#competitions{% else %}{% url 'main:home' %}#competitions{% endif %}"
-    >
-      Competitions
-    </a>
-    <a
-      class="block py-2 px-4 hover:bg-gray-600"
-      href="{% if request.path == '/' %}#about{% else %}{% url 'main:home' %}#about{% endif %}"
-    >
-      About
-    </a>
-    <a
-      class="block py-2 px-4 hover:bg-gray-600"
-      href="{% if request.path == '/' %}#contact{% else %}{% url 'main:home' %}#contact{% endif %}"
-    >
-      Contact
-    </a>
-    {% if user.is_authenticated %}
-    <a
-      class="block py-2 px-4 hover:bg-gray-600"
-      href="{% url 'main:dashboard' %}"
-    >
-      Dashboard
-    </a>
-    <a
-      class="block py-2 px- 4 hover:bg-gray-600"
-      href="{% url 'main:logout' %}"
-    >
-      Logout
-    </a>
-    {% else %}
-    <a
-      class="block py-2 px-4 hover:bg-gray-600"
-      href="{% url 'main:login' %}"
-    >
-      Login
-    </a>
-    {% endif %}
-  </div>
-</nav>
-
-{% block content %} {% endblock %}
-
-<footer class="bg-gray-800 text-white py-8">
-  <div class="container mx-auto px-6 text-center">
-    <p class="mb-4">© 2025 Tech Sphere. All rights reserved.</p>
-    {% comment %} <div class="mt-4">
-      <p class="text-gray-400">For any queries, contact:</p>
-      <p>
-        <span class="font-bold">Devrao Bokare:</span>
-        <a href="tel:+918390200292">+91 83902 00292</a><br>
-        <span class="font-bold">Amol Jadhav:</span>
-        <a href="tel:+919552678123">+91 95526 78123</a>
-      </p>
-    </div> {% endcomment %}
-  </div>
-</footer>
-<script>
-  document
-    .getElementById("menu-button")
-    .addEventListener("click", function () {
-      var menu = document.getElementById("mobile-menu");
-      if (menu.classList.contains("hidden")) {
-        menu.classList.remove("hidden");
-      } else {
-        menu.classList.add("hidden");
+    <!-- Custom Futuristic Styles -->
+    <style>
+      :root {
+        /* Neon Colors */
+        --neon-cyan: #00ffff;
+        --neon-purple: #8a2be2;
+        --neon-pink: #ff1493;
+        --neon-green: #39ff14;
+        --neon-orange: #ff6600;
+        --neon-blue: #0080ff;
+        
+        /* Dark Background Colors */
+        --bg-primary: #0a0a0f;
+        --bg-secondary: #1a1a2e;
+        --bg-tertiary: #16213e;
+        --bg-glass: rgba(255, 255, 255, 0.05);
+        --bg-glass-dark: rgba(0, 0, 0, 0.3);
+        
+        /* Text Colors */
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --text-tertiary: #707070;
       }
-    });
-</script>
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+        background-attachment: fixed;
+        min-height: 100vh;
+        color: var(--text-primary);
+        overflow-x: hidden;
+      }
+
+      /* Glassmorphism utility classes */
+      .glass {
+        background: var(--bg-glass);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .glass-dark {
+        background: var(--bg-glass-dark);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Neon glow effects */
+      .neon-glow-cyan {
+        box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 15px var(--neon-cyan);
+      }
+
+      .neon-glow-purple {
+        box-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple);
+      }
+
+      .neon-text-cyan {
+        color: var(--neon-cyan);
+        text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+      }
+
+      .neon-text-purple {
+        color: var(--neon-purple);
+        text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+      }
+
+      /* Enhanced animations */
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+
+      @keyframes pulse-neon {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+
+      @keyframes slideInFromLeft {
+        0% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInFromRight {
+        0% {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInFromBottom {
+        0% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes scaleIn {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* Animation classes */
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .animate-pulse-neon {
+        animation: pulse-neon 2s ease-in-out infinite;
+      }
+
+      .animate-slide-left {
+        animation: slideInFromLeft 0.8s ease-out forwards;
+      }
+
+      .animate-slide-right {
+        animation: slideInFromRight 0.8s ease-out forwards;
+      }
+
+      .animate-slide-bottom {
+        animation: slideInFromBottom 0.8s ease-out forwards;
+      }
+
+      .animate-scale {
+        animation: scaleIn 0.6s ease-out forwards;
+      }
+
+      /* Animation delays */
+      .delay-300 { animation-delay: 0.3s; }
+      .delay-500 { animation-delay: 0.5s; }
+      .delay-600 { animation-delay: 0.6s; }
+      .delay-900 { animation-delay: 0.9s; }
+      .delay-1000 { animation-delay: 1s; }
+      .delay-1200 { animation-delay: 1.2s; }
+      .delay-1500 { animation-delay: 1.5s; }
+
+      /* Scroll animations */
+      .fade-in-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+
+      .fade-in-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Modern button styles */
+      .btn-futuristic {
+        position: relative;
+        padding: 12px 32px;
+        font-family: 'Orbitron', monospace;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: 2px solid var(--neon-cyan);
+        background: transparent;
+        color: var(--neon-cyan);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .btn-futuristic::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+        transition: left 0.5s;
+      }
+
+      .btn-futuristic:hover::before {
+        left: 100%;
+      }
+
+      .btn-futuristic:hover {
+        color: var(--bg-primary);
+        background: var(--neon-cyan);
+        box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+        transform: translateY(-2px);
+      }
+
+      /* Card hover effects */
+      .tech-card {
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tech-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .tech-card:hover::before {
+        opacity: 1;
+      }
+
+      .tech-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2), 0 0 30px rgba(138, 43, 226, 0.1);
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-purple));
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, var(--neon-purple), var(--neon-cyan));
+      }
+
+      /* Logo styling */
+      .logo {
+        font-family: 'Orbitron', monospace;
+        font-weight: 900;
+        font-size: 1.8rem;
+        background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+      }
+
+      /* Navigation enhancements */
+      .nav-link {
+        position: relative;
+        padding: 8px 16px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .nav-link:hover {
+        color: var(--text-primary);
+        text-shadow: 0 0 8px var(--neon-cyan);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Mobile menu styling */
+      .mobile-menu {
+        background: var(--bg-glass-dark);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Footer styling */
+      footer {
+        background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+        border-top: 1px solid rgba(0, 255, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Futuristic Navbar -->
+    <nav class="glass-dark fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <!-- Logo -->
+          <a href="{% url 'main:home' %}" class="logo flex items-center space-x-2">
+            <i class="fas fa-cube neon-text-cyan"></i>
+            <span>TechSphere</span>
+          </a>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="{% url 'main:home' %}" class="nav-link">
+              <i class="fas fa-home mr-2"></i>Home
+            </a>
+            <a href="{% if request.path == '/' %}#competitions{% else %}{% url 'main:home' %}#competitions{% endif %}" class="nav-link">
+              <i class="fas fa-trophy mr-2"></i>Competitions
+            </a>
+            <a href="{% if request.path == '/' %}#about{% else %}{% url 'main:home' %}#about{% endif %}" class="nav-link">
+              <i class="fas fa-info-circle mr-2"></i>About
+            </a>
+            <a href="{% if request.path == '/' %}#contact{% else %}{% url 'main:home' %}#contact{% endif %}" class="nav-link">
+              <i class="fas fa-envelope mr-2"></i>Contact
+            </a>
+            
+            {% if user.is_authenticated %}
+              <a href="{% url 'main:dashboard' %}" class="nav-link">
+                <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+              </a>
+              <a href="{% url 'main:logout' %}" class="nav-link">
+                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+              </a>
+            {% else %}
+              <a href="{% url 'main:login' %}" class="btn-futuristic text-sm px-6 py-2 rounded-full">
+                <i class="fas fa-sign-in-alt mr-2"></i>Login
+              </a>
+            {% endif %}
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button class="md:hidden text-2xl neon-text-cyan focus:outline-none" id="mobile-menu-button">
+            <i class="fas fa-bars" id="menu-icon"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="md:hidden mt-4 hidden mobile-menu rounded-lg p-4" id="mobile-menu">
+          <div class="flex flex-col space-y-4">
+            <a href="{% url 'main:home' %}" class="nav-link">
+              <i class="fas fa-home mr-2"></i>Home
+            </a>
+            <a href="{% if request.path == '/' %}#competitions{% else %}{% url 'main:home' %}#competitions{% endif %}" class="nav-link">
+              <i class="fas fa-trophy mr-2"></i>Competitions
+            </a>
+            <a href="{% if request.path == '/' %}#about{% else %}{% url 'main:home' %}#about{% endif %}" class="nav-link">
+              <i class="fas fa-info-circle mr-2"></i>About
+            </a>
+            <a href="{% if request.path == '/' %}#contact{% else %}{% url 'main:home' %}#contact{% endif %}" class="nav-link">
+              <i class="fas fa-envelope mr-2"></i>Contact
+            </a>
+            
+            {% if user.is_authenticated %}
+              <a href="{% url 'main:dashboard' %}" class="nav-link">
+                <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+              </a>
+              <a href="{% url 'main:logout' %}" class="nav-link">
+                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+              </a>
+            {% else %}
+              <a href="{% url 'main:login' %}" class="btn-futuristic text-sm px-6 py-2 rounded-full inline-block text-center">
+                <i class="fas fa-sign-in-alt mr-2"></i>Login
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Futuristic Footer -->
+    <footer class="py-12 mt-20">
+      <div class="container mx-auto px-6">
+        <div class="text-center">
+          <div class="logo text-3xl mb-6">TechSphere</div>
+          <p class="text-gray-400 mb-4">Pioneering the future through cutting-edge technology</p>
+          <div class="flex justify-center space-x-6 mb-6">
+            <a href="#" class="text-gray-400 hover:neon-text-cyan transition-colors">
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:neon-text-cyan transition-colors">
+              <i class="fab fa-linkedin text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:neon-text-cyan transition-colors">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:neon-text-cyan transition-colors">
+              <i class="fab fa-discord text-xl"></i>
+            </a>
+          </div>
+          <p class="text-gray-500 text-sm">© 2025 TechSphere. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        menuIcon.classList.toggle('fa-bars');
+        menuIcon.classList.toggle('fa-times');
+      });
+
+      // Navbar scroll effect
+      window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+          navbar.style.background = 'rgba(0, 0, 0, 0.8)';
+          navbar.style.backdropFilter = 'blur(20px)';
+        } else {
+          navbar.style.background = 'rgba(0, 0, 0, 0.3)';
+          navbar.style.backdropFilter = 'blur(15px)';
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
+        });
+      });
+
+      // Scroll animation observer
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      // Observe all elements with fade-in-on-scroll class
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
+          observer.observe(el);
+        });
+      });
+
+      // Add some particle effects (optional)
+      function createParticle() {
+        const particle = document.createElement('div');
+        particle.style.position = 'fixed';
+        particle.style.width = '2px';
+        particle.style.height = '2px';
+        particle.style.background = '#00ffff';
+        particle.style.borderRadius = '50%';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '1';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = '100vh';
+        particle.style.opacity = Math.random();
+        particle.style.boxShadow = '0 0 6px #00ffff';
+        
+        document.body.appendChild(particle);
+        
+        const animation = particle.animate([
+          { transform: 'translateY(0)', opacity: particle.style.opacity },
+          { transform: `translateY(-100vh) translateX(${(Math.random() - 0.5) * 200}px)`, opacity: 0 }
+        ], {
+          duration: 3000 + Math.random() * 2000,
+          easing: 'linear'
+        });
+        
+        animation.onfinish = () => particle.remove();
+      }
+
+      // Create particles occasionally
+      setInterval(createParticle, 2000);
+    </script>
   </body>
 </html>
