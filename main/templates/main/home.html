@@ -2,164 +2,415 @@
 {% extends 'base.html' %} {% load static %} {% block title %}Home - Tech
 Sphere{% endblock %} {% block content %}
 
-<!-- Hero Section -->
-<section class="bg-gray-800 text-white block" id="hero">
-  <div
-    class="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center"
-  >
-    <div class="md:w-1/2 animate-slideIn text-center md:text-left">
-      <h1 class="text-4xl md:text-7xl font-bold mb-4">
-        Welcome to <span class="text-blue-500"><br />Tech Sphere</span>
-      </h1>
-      <p class="text-lg md:text-3xl mb-8">
-        Innovating the Future with Advanced Robotics
-      </p>
-      <a
-        class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full inline-block"
-        href="#competitions"
-      >
-        Explore Competitions
-      </a>
-    </div>
-    <div class="md:w-1/2 animate-popUp mt-8 md:mt-0">
-      <img
-        alt="A futuristic sphere representing advanced technology"
-        class="mx-auto"
-        height="400"
-        src="{% static 'main/images/ts_adv.png' %}"
-        width="600"
-      />
+<!-- Futuristic Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden" id="hero">
+  <!-- Animated Background -->
+  <div class="absolute inset-0 opacity-20">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full filter blur-3xl animate-pulse-neon"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full filter blur-3xl animate-float"></div>
+    <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-green-400 to-blue-500 rounded-full filter blur-3xl animate-pulse-neon delay-1000"></div>
+  </div>
+
+  <div class="container mx-auto px-6 py-20 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Hero Text -->
+      <div class="text-center lg:text-left fade-in-on-scroll">
+                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+           <span class="block font-orbitron text-white animate-slide-left">Welcome to</span>
+           <span class="block neon-text-cyan font-orbitron animate-slide-right delay-300">TechSphere</span>
+         </h1>
+         <p class="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-8 animate-slide-bottom delay-600">
+           <span class="neon-text-purple">Pioneering the Future</span> through<br>
+           <span class="text-white">Cutting-Edge Tech Competitions</span>
+         </p>
+         <p class="text-lg text-gray-400 mb-12 max-w-lg mx-auto lg:mx-0 animate-slide-bottom delay-900">
+           Join the next generation of innovators in AI, Robotics, Space-Tech, and beyond. 
+           Where brilliant minds converge to shape tomorrow.
+         </p>
+         
+         <!-- CTA Buttons -->
+         <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start animate-scale delay-1200">
+          <a href="#competitions" class="btn-futuristic text-lg px-8 py-4 rounded-full group">
+            <span class="relative z-10">Explore Competitions</span>
+            <i class="fas fa-rocket ml-3 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="{% url 'main:login' %}" class="glass border-2 border-purple-500 text-purple-300 hover:text-white font-orbitron font-semibold text-lg px-8 py-4 rounded-full transition-all duration-300 hover:bg-purple-500 hover:neon-glow-purple group">
+            <i class="fas fa-user-plus mr-3 group-hover:scale-110 transition-transform"></i>
+            <span>Join Now</span>
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mt-16 fade-in-on-scroll">
+          <div class="text-center">
+            <div class="text-3xl font-orbitron font-bold neon-text-cyan">500+</div>
+            <div class="text-gray-400 text-sm uppercase tracking-wide">Participants</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-orbitron font-bold neon-text-purple">15+</div>
+            <div class="text-gray-400 text-sm uppercase tracking-wide">Competitions</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-orbitron font-bold neon-text-cyan">₹2L+</div>
+            <div class="text-gray-400 text-sm uppercase tracking-wide">Prize Pool</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual -->
+      <div class="relative flex justify-center lg:justify-end animate-float">
+        <div class="relative">
+          <!-- Main Image -->
+          <div class="relative z-10">
+            <img src="{% static 'main/images/ts_adv.png' %}" 
+                 alt="Futuristic Technology Sphere" 
+                 class="w-full max-w-lg h-auto drop-shadow-2xl animate-pulse-neon">
+          </div>
+          
+          <!-- Glowing Orbs -->
+          <div class="absolute -top-10 -left-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full blur-sm animate-float delay-500"></div>
+          <div class="absolute -bottom-5 -right-5 w-16 h-16 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full blur-sm animate-float delay-1000"></div>
+          <div class="absolute top-1/2 -right-8 w-12 h-12 bg-gradient-to-r from-pink-400 to-pink-600 rounded-full blur-sm animate-float delay-1500"></div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <a href="#competitions" class="flex flex-col items-center text-gray-400 hover:text-cyan-400 transition-colors">
+      <span class="text-sm uppercase tracking-wide mb-2">Discover More</span>
+      <i class="fas fa-chevron-down text-xl"></i>
+    </a>
+  </div>
 </section>
-<!-- Competitions Section -->
-<section class="bg-gray-900 text-white py-16 block" id="competitions">
-  <div class="container mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
-      Upcoming Competitions
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-4">
-      {% for competition in competitions %}
-      <div
-        class="competition-card bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out animation-popUp"
-      >
-        {% if competition.image %}
-        <img
-          alt="{{ competition.name }}"
-          class="w-full h-48 object-cover"
-          src="{{ competition.image.url }}"
-        />
-        {% endif %}
-        <div class="p-4">
-          <h3 class="text-xl font-semibold mb-2">{{ competition.name }}</h3>
-          <a
-            class="details-button bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full mt-4 inline-block"
-            href="{% url 'main:competition_detail' pk=competition.pk %}"
-          >
-            View Details
+
+<!-- Enhanced Competitions Section -->
+<section class="py-20 relative" id="competitions">
+  <!-- Section Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/50 to-transparent"></div>
+  
+  <div class="container mx-auto px-6 relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16 fade-in-on-scroll">
+      <h2 class="text-4xl md:text-6xl font-orbitron font-bold mb-6">
+        <span class="neon-text-cyan">Upcoming</span> 
+        <span class="text-white">Competitions</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        Push the boundaries of innovation. Compete with the brightest minds. 
+        Shape the future of technology.
+      </p>
+      <div class="w-32 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto mt-8 rounded-full"></div>
+    </div>
+
+    <!-- Competitions Grid -->
+         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+       {% for competition in competitions %}
+       <div class="tech-card glass rounded-2xl overflow-hidden group fade-in-on-scroll">
+        <!-- Competition Image -->
+        <div class="relative overflow-hidden">
+          {% if competition.image %}
+          <img src="{{ competition.image.url }}" 
+               alt="{{ competition.name }}" 
+               class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+          {% else %}
+          <div class="w-full h-64 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+            <i class="fas fa-robot text-6xl text-cyan-400 opacity-50"></i>
+          </div>
+          {% endif %}
+          
+          <!-- Overlay Gradient -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          
+          <!-- Competition Category Badge -->
+          <div class="absolute top-4 left-4">
+            <span class="glass px-3 py-1 rounded-full text-sm font-semibold neon-text-cyan">
+              <i class="fas fa-star mr-1"></i>Featured
+            </span>
+          </div>
+        </div>
+
+        <!-- Competition Content -->
+        <div class="p-6">
+          <h3 class="text-2xl font-orbitron font-bold text-white mb-3 group-hover:neon-text-cyan transition-colors">
+            {{ competition.name }}
+          </h3>
+          
+          {% if competition.description %}
+          <p class="text-gray-400 mb-4 line-clamp-2">
+            {{ competition.description|truncatewords:20 }}
+          </p>
+          {% endif %}
+
+          <!-- Competition Meta -->
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4 text-sm text-gray-500">
+              <span class="flex items-center">
+                <i class="fas fa-users mr-1"></i>
+                {% if competition.is_individual %}Individual{% else %}Team{% endif %}
+              </span>
+              {% if competition.max_team_size and not competition.is_individual %}
+              <span class="flex items-center">
+                <i class="fas fa-user-friends mr-1"></i>
+                Max {{ competition.max_team_size }}
+              </span>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <a href="{% url 'main:competition_detail' pk=competition.pk %}" 
+             class="block w-full text-center bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-orbitron font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 group">
+            <span>View Details</span>
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
           </a>
         </div>
       </div>
       {% empty %}
-      <p>No competitions available yet.</p>
+      <div class="col-span-full text-center py-20">
+        <div class="glass rounded-2xl p-12 max-w-md mx-auto">
+          <i class="fas fa-rocket text-6xl neon-text-cyan mb-6"></i>
+          <h3 class="text-2xl font-orbitron font-bold text-white mb-4">Coming Soon</h3>
+          <p class="text-gray-400">Epic competitions are being prepared. Stay tuned for mind-blowing challenges!</p>
+        </div>
+      </div>
       {% endfor %}
     </div>
-  </div>
-</section>
-<!-- About Section -->
-<section class="bg-gray-800 text-white py-16 block" id="about">
-  <div class="container mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">About Us</h2>
-    <div class="flex flex-col md:flex-row items-center px-4">
-      <img
-        alt="Team of engineers working on a robotic project"
-        class="w-full md:w-1/2 mb-8 md:mb-0 md:mr-8 rounded animate-slideIn"
-        height="300"
-        src="{% static 'main/images/team_about.jpg' %}"
-        width="400"
-      />
-      <div class="md:w-1/2 animate-slideUp">
-        <p class="text-lg mb-4">
-          Welcome to our corner of the internet! We’re a passionate team of
-          students from MPGI SOE Nanded, united by our love for building
-          innovative products and tackling real-world challenges. Each of us
-          brings unique skills and perspectives to the table, and together, we
-          thrive on collaboration and creativity. Our mission is simple yet
-          powerful: to make the world a better place, one project at a time.
-          Whether we’re brainstorming new ideas or diving into hands-on
-          development, we’re driven by a shared commitment to problem-solving
-          and innovation.
-        </p>
-      </div>
+
+    <!-- View All Button -->
+    {% if competitions %}
+    <div class="text-center mt-12 fade-in-on-scroll">
+      <a href="#competitions" class="btn-futuristic text-lg px-8 py-4 rounded-full">
+        View All Competitions
+        <i class="fas fa-chevron-right ml-3"></i>
+      </a>
     </div>
+    {% endif %}
   </div>
 </section>
-<!-- Contact Section -->
-<section class="bg-gray-900 text-white py-16 block" id="contact">
-  <div class="container mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Contact Us</h2>
-    <div class="flex flex-col md:flex-row items-center px-4">
-      <div class="md:w-1/2 mb-8 md:mb-0 md:mr-8 animate-slideIn">
-        <h3 class="text-2xl font-bold mb-4">Get in Touch</h3>
-        <p class="text-lg mb-4">
-          We'd love to hear from you! Whether you have a question about our
-          products, services, or anything else, our team is ready to answer all
-          your questions.
-        </p>
-        <p class="text-lg mb-4">
-          <i class="fas fa-phone-alt mr-2"></i> +91 92265 20596
-        </p>
-        <p class="text-lg mb-4">
-          <i class="fas fa-envelope mr-2"></i> roboticsboysmpgi@gmail.com
-        </p>
-        <p class="text-lg">
-          <i class="fas fa-map-marker-alt mr-2"></i> 401, Computer
-          Department, MPGI SOE Nanded
-        </p>
-      </div>
-      <form
-        method="post"
-        class="md:w-1/2 w-full bg-gray-800 p-6 rounded-lg shadow-lg animate-popUp"
-      >
-        {% csrf_token %} {{ form.as_p }}
-        <button
-          class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold mt-2 py-2 px-4 rounded-full"
-          type="submit"
-        >
-          Send Message
-        </button>
-        {% if messages %}
-        <div class="mt-4">
-          {% for message in messages %}
-          <div
-            class="bg-{{ message.tags }}-200 border-l-4 border-{{ message.tags }}-500 text-{{ message.tags }}-700 p-4 mb-2"
-            role="alert"
-          >
-            <p class="font-bold">{{ message.tags|title }}</p>
-            <p>{{ message }}</p>
-          </div>
-          {% endfor %}
+
+<!-- Enhanced About Section -->
+<section class="py-20 relative" id="about">
+  <div class="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-cyan-900/10"></div>
+  
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- About Image -->
+      <div class="relative fade-in-on-scroll">
+        <div class="relative z-10">
+          <img src="{% static 'main/images/team_about.jpg' %}" 
+               alt="TechSphere Team" 
+               class="rounded-2xl shadow-2xl w-full h-96 object-cover">
         </div>
-        {% endif %}
-      </form>
+        <!-- Decorative Elements -->
+        <div class="absolute -top-6 -left-6 w-24 h-24 border-4 border-cyan-500 rounded-2xl opacity-50"></div>
+        <div class="absolute -bottom-6 -right-6 w-32 h-32 border-4 border-purple-500 rounded-2xl opacity-30"></div>
+      </div>
+
+      <!-- About Content -->
+      <div class="fade-in-on-scroll">
+        <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-8">
+          <span class="neon-text-purple">About</span> 
+          <span class="text-white">TechSphere</span>
+        </h2>
+        
+        <div class="space-y-6 text-lg text-gray-300 leading-relaxed">
+          <p>
+            Welcome to <span class="neon-text-cyan font-semibold">TechSphere</span> – where the future meets innovation. 
+            We're a passionate collective of visionaries from MPGI SOE Nanded, united by our relentless 
+            pursuit of technological excellence.
+          </p>
+          
+          <p>
+            Our mission transcends traditional boundaries. We don't just organize competitions; 
+            we <span class="text-white font-semibold">architect experiences</span> that challenge minds, 
+            foster collaboration, and birth the innovations of tomorrow.
+          </p>
+          
+          <p>
+            Every line of code, every circuit designed, every algorithm optimized – 
+            it all contributes to a singular vision: 
+            <span class="neon-text-purple font-semibold">making the world better, one breakthrough at a time.</span>
+          </p>
+        </div>
+
+        <!-- Mission Points -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+          <div class="glass rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-lightbulb neon-text-cyan text-2xl mr-4"></i>
+              <h4 class="font-orbitron font-bold text-white">Innovation</h4>
+            </div>
+            <p class="text-gray-400 text-sm">Pushing technological boundaries through creative problem-solving</p>
+          </div>
+          
+          <div class="glass rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-users neon-text-purple text-2xl mr-4"></i>
+              <h4 class="font-orbitron font-bold text-white">Collaboration</h4>
+            </div>
+            <p class="text-gray-400 text-sm">Building bridges between brilliant minds across disciplines</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Enhanced Contact Section -->
+<section class="py-20 relative" id="contact">
+  <div class="absolute inset-0 bg-gradient-to-b from-cyan-900/5 to-purple-900/5"></div>
+  
+  <div class="container mx-auto px-6 relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16 fade-in-on-scroll">
+      <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-6">
+        <span class="text-white">Get In</span> 
+        <span class="neon-text-cyan">Touch</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        Ready to join the future? Have questions? We're here to help you embark on your innovation journey.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <!-- Contact Info -->
+      <div class="fade-in-on-scroll">
+        <div class="glass rounded-2xl p-8">
+          <h3 class="text-2xl font-orbitron font-bold neon-text-purple mb-8">Connect With Us</h3>
+          
+          <div class="space-y-6">
+            <div class="flex items-center space-x-4 group">
+              <div class="w-12 h-12 glass rounded-full flex items-center justify-center group-hover:neon-glow-cyan transition-all">
+                <i class="fas fa-phone-alt neon-text-cyan"></i>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm uppercase tracking-wide">Phone</p>
+                <p class="text-white font-semibold">+91 92265 20596</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-4 group">
+              <div class="w-12 h-12 glass rounded-full flex items-center justify-center group-hover:neon-glow-purple transition-all">
+                <i class="fas fa-envelope neon-text-purple"></i>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm uppercase tracking-wide">Email</p>
+                <p class="text-white font-semibold">roboticsboysmpgi@gmail.com</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-4 group">
+              <div class="w-12 h-12 glass rounded-full flex items-center justify-center group-hover:neon-glow-cyan transition-all">
+                <i class="fas fa-map-marker-alt neon-text-cyan"></i>
+              </div>
+              <div>
+                <p class="text-gray-400 text-sm uppercase tracking-wide">Location</p>
+                <p class="text-white font-semibold">401, Computer Department<br>MPGI SOE Nanded</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="flex space-x-4 mt-8 pt-8 border-t border-gray-700">
+            <a href="#" class="w-10 h-10 glass rounded-full flex items-center justify-center hover:neon-glow-cyan transition-all group">
+              <i class="fab fa-twitter group-hover:neon-text-cyan"></i>
+            </a>
+            <a href="#" class="w-10 h-10 glass rounded-full flex items-center justify-center hover:neon-glow-purple transition-all group">
+              <i class="fab fa-linkedin group-hover:neon-text-purple"></i>
+            </a>
+            <a href="#" class="w-10 h-10 glass rounded-full flex items-center justify-center hover:neon-glow-cyan transition-all group">
+              <i class="fab fa-github group-hover:neon-text-cyan"></i>
+            </a>
+            <a href="#" class="w-10 h-10 glass rounded-full flex items-center justify-center hover:neon-glow-purple transition-all group">
+              <i class="fab fa-discord group-hover:neon-text-purple"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="fade-in-on-scroll">
+        <form method="post" class="glass rounded-2xl p-8">
+          {% csrf_token %}
+          <h3 class="text-2xl font-orbitron font-bold neon-text-cyan mb-8">Send Message</h3>
+          
+          <div class="space-y-6">
+            {{ form.as_p }}
+          </div>
+          
+          <button type="submit" class="btn-futuristic w-full text-lg py-4 rounded-xl mt-8 group">
+            <span>Send Message</span>
+            <i class="fas fa-paper-plane ml-3 group-hover:translate-x-1 transition-transform"></i>
+          </button>
+          
+          {% if messages %}
+          <div class="mt-6 space-y-3">
+            {% for message in messages %}
+            <div class="glass border-l-4 {% if message.tags == 'success' %}border-green-500{% else %}border-red-500{% endif %} p-4 rounded-r-lg">
+              <p class="{% if message.tags == 'success' %}text-green-400{% else %}text-red-400{% endif %} font-semibold">
+                {{ message.tags|title }}
+              </p>
+              <p class="text-gray-300">{{ message }}</p>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Custom JavaScript for enhanced interactions -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("href");
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 70,
-            behavior: "smooth",
-          });
+  // Add Orbitron font class where needed
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add font classes
+    const orbitronElements = document.querySelectorAll('h1, h2, h3, .font-orbitron');
+    orbitronElements.forEach(el => {
+      if (!el.classList.contains('font-orbitron')) {
+        el.style.fontFamily = "'Orbitron', monospace";
+      }
+    });
+
+    // Enhanced scroll animations
+    const fadeElements = document.querySelectorAll('.fade-in-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeElements.forEach(el => observer.observe(el));
+
+    // Parallax effect for hero background
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const heroSection = document.getElementById('hero');
+      if (heroSection) {
+        const backgroundElements = heroSection.querySelectorAll('.absolute > div');
+        backgroundElements.forEach((el, index) => {
+          const speed = 0.5 + (index * 0.1);
+          el.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+      }
+    });
+
+    // Add hover sound effect (optional)
+    const techCards = document.querySelectorAll('.tech-card');
+    techCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        // Optional: Add subtle hover sound or haptic feedback
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
         }
       });
     });
   });
 </script>
+
 {% endblock %}
