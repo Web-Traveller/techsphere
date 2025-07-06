@@ -8,9 +8,31 @@
     <meta name="description" content="Tech Sphere is a platform for robotics competitions and innovation."/>
     <meta name="keywords" content="robotics, competition, innovation, tech, engineering"/>
     <link rel="icon" href="{% static 'main/images/favicon.ico' %}" type="image/x-icon"/>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              orbitron: ['Orbitron', 'sans-serif'],
+              inter: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              neon: {
+                DEFAULT: '#00E6FF',
+                soft: '#00B8FF',
+              },
+            },
+            boxShadow: {
+              neon: '0 0 10px #00E6FF, 0 0 20px #00E6FF',
+            },
+          },
+        },
+      };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet"/>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-G6KGZSXZCJ"></script>
 <script>
@@ -86,11 +108,36 @@
     opacity: 0;
     transform: translateY(10px);
   }
+  /* === Futuristic Neon / Glass Styles === */
+  .glass-card{
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+  }
+  .glass-nav{
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .neon-text{
+    color:#00E6FF;
+    text-shadow:0 0 8px #00E6FF;
+  }
+  .neon-btn{
+    background-color:#00E6FF;
+    color:#0f0f0f;
+    box-shadow:0 0 10px #00E6FF,0 0 20px #00E6FF;
+    transition:all 0.3s ease;
+  }
+  .neon-btn:hover{
+    background-color:#00B8FF;
+    box-shadow:0 0 14px #00E6FF,0 0 24px #00E6FF;
+  }
 </style>
   </head>
-  <body class="font-roboto bg-gray-900 text-white view">
+  <body class="font-inter bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white min-h-screen view">
     <!-- Navbar -->
-<nav class="bg-gray-700 p-4 sticky top-0 z-50">
+<nav class="glass-nav p-4 sticky top-0 z-50">
   <div class="container mx-auto flex justify-between items-center px-4">
     <a class="text-2xl font-bold" href="{% url 'main:home' %}">
       Tech Sphere

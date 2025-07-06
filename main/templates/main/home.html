@@ -3,19 +3,19 @@
 Sphere{% endblock %} {% block content %}
 
 <!-- Hero Section -->
-<section class="bg-gray-800 text-white block" id="hero">
+<section class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white block" id="hero">
   <div
     class="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center"
   >
     <div class="md:w-1/2 animate-slideIn text-center md:text-left">
-      <h1 class="text-4xl md:text-7xl font-bold mb-4">
-        Welcome to <span class="text-blue-500"><br />Tech Sphere</span>
+      <h1 class="text-4xl md:text-7xl font-bold mb-4 font-orbitron neon-text">
+        Welcome to <span class="block">Tech Sphere</span>
       </h1>
       <p class="text-lg md:text-3xl mb-8">
         Innovating the Future with Advanced Robotics
       </p>
       <a
-        class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full inline-block"
+        class="neon-btn inline-block px-8 py-3 rounded-full mt-4"
         href="#competitions"
       >
         Explore Competitions
@@ -41,7 +41,7 @@ Sphere{% endblock %} {% block content %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 px-4">
       {% for competition in competitions %}
       <div
-        class="competition-card bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out animation-popUp"
+        class="competition-card glass-card rounded-xl overflow-hidden transform hover:-translate-y-2 transition duration-300 ease-in-out hover:shadow-neon animation-popUp"
       >
         {% if competition.image %}
         <img
@@ -53,7 +53,7 @@ Sphere{% endblock %} {% block content %}
         <div class="p-4">
           <h3 class="text-xl font-semibold mb-2">{{ competition.name }}</h3>
           <a
-            class="details-button bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full mt-4 inline-block"
+            class="details-button neon-btn mt-4 inline-block px-4 py-2 rounded-full"
             href="{% url 'main:competition_detail' pk=competition.pk %}"
           >
             View Details
@@ -80,14 +80,14 @@ Sphere{% endblock %} {% block content %}
       />
       <div class="md:w-1/2 animate-slideUp">
         <p class="text-lg mb-4">
-          Welcome to our corner of the internet! We’re a passionate team of
+          Welcome to our corner of the internet! We're a passionate team of
           students from MPGI SOE Nanded, united by our love for building
           innovative products and tackling real-world challenges. Each of us
           brings unique skills and perspectives to the table, and together, we
           thrive on collaboration and creativity. Our mission is simple yet
           powerful: to make the world a better place, one project at a time.
-          Whether we’re brainstorming new ideas or diving into hands-on
-          development, we’re driven by a shared commitment to problem-solving
+          Whether we're brainstorming new ideas or diving into hands-on
+          development, we're driven by a shared commitment to problem-solving
           and innovation.
         </p>
       </div>
